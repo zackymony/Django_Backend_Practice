@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS=["https://www.zackymony.asia", "https://zackymony.asia" ]
+
 # Application definition
 
 INSTALLED_APPS = ['accounts',
@@ -67,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-AUTH_USER_MODEL='accounts.Users'
+AUTH_USER_MODEL='accounts.User'
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Database

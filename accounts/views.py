@@ -1,35 +1,26 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from .forms import TeacherRegistrationForm, StudentRegistrationForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import TeacherRegistrationForm, StudentRegistrationForm
+from django.contrib.auth import authenticate, login, logout
 
-def register(request):
+def register_student(request):
     if request.method == 'POST':
-        if request.POST.get('role') == 'teacher':
-            form = TeacherRegistrationForm(request.POST)
-        else:
-            form = StudentRegistrationForm(request.POST)
+        form = StudentRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-
             messages.success(request, 'Your account has been created! You are now able to log in')
-            return redirect('account/login')
+            return redirect("/accounts/login")
         else:
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"{field}: {error}")
     else:
-        if request.GET.get('role') == 'teacher':
-            form = TeacherRegistrationForm()
-        else:
             form = StudentRegistrationForm()
-    return render(request, 'accounts/register.html', {'form': form})
+    return render(request, 'accounts/register_student.html', {'form': form})
 
 
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
 
 def user_login(request):
     if request.method == 'POST':

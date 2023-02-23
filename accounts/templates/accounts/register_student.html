@@ -4,16 +4,10 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 mx-auto mt-5">
-      <h2>Register</h2>
+      <h2>Register For Student</h2>
       <hr>
       <form method="post">
         {% csrf_token %}
-    <select id="role" name="role">
-  <option value="">Select a role</option>
-  <option value="student">Student</option>
-  <option value="teacher">Teacher</option>
-</select>
-
         <div class="form-group">
           <label for="{{ form.username.id_for_label }}">Username:</label>
           {{ form.username }}
