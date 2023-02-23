@@ -1,11 +1,61 @@
-{% extends "admin/base.html" %}
-
+{% extends "base.html" %}
 {% block content %}
-<h2>Login</h2>
-<form method="post">
+
+
+  <h2>Register</h2>
+  <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">register</button>
-</form>
+    <div class="form-group">
+      <label for="id_role">Select role:</label>
+      <select class="form-control" id="id_role" name="role">
+        <option value="teacher">Teacher</option>
+        <option value="student" selected>Student</option>
+      </select>
+    </div>
+    <div class="form-group" id="teacher-fields"  style="display: {% if form.role.value != 'student' %}block{% else %}none{% endif %}">
+      <label for="id_username">Username:</label>
+      {{ form.username }}
+      <label for="id_email">Email:</label>
+      {{ form.email }}
+      <label for="id_password1">Password:</label>
+      {{ form.password1 }}
+      <label for="id_password2">Confirm password:</label>
+      {{ form.password2 }}
+    </div>
+    <div class="form-group" id="student-fields" style="display: {% if form.role.value == 'student' %}block{% else %}none{% endif %}">
+      <label for="id_username">Username:</label>
+      {{ form.username }}
+      <label for="id_email">Email:</label>
+      {{ form.email }}
+      <label for="id_password1">Password:</label>
+      {{ form.password1 }}
+      <label for="id_password2">Confirm password:</label>
+      {{ form.password2 }}
+
+
+        <label for="id_birthday">Birthday:</label>
+          <input type="date" id="id_birthday" name="birthday" class="form-control"  value="{{ form.birthday.value|default:'' }}" required>
+      <label for="id_student_number">Student number:</label>
+      {{ form.student_number }}
+    </div>
+    <button type="submit" class="btn btn-primary">Register</button>
+  </form>
+
+
+  <script>
+    // Listen for changes to role selection and update form fields
+    const roleSelect = document.getElementById('id_role');
+    const teacherFields = document.getElementById('teacher-fields');
+    const studentFields = document.getElementById('student-fields');
+    roleSelect.addEventListener('change', () => {
+      if (roleSelect.value === 'teacher') {
+        teacherFields.style.display = 'block';
+        studentFields.style.display = 'none';
+      } else {
+        studentFields.style.display = 'block';
+        teacherFields.style.display = 'none';
+      }
+    });
+  </script>
 {% endblock %}
 
