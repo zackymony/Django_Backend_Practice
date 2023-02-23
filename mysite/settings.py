@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
-INSTALLED_APPS = [
+INSTALLED_APPS = ['accounts',
     'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -67,6 +67,7 @@ TEMPLATES = [
     },
 ]
 
+AUTH_USER_MODEL='accounts.Users'
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Database
